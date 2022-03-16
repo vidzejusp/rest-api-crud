@@ -9,3 +9,7 @@ API nuorodos eksportuotos per Postman. TOKEN nurodytas tarp kolekcijos parent **
 2 modeliai - orders ir users, kuriems sukurtos CRUD funkcijos.
 Paprastas REST API su token auth (Laravel Sanctum).
 orderscount vartotojui atnaujinamas sukuriant/ištrinant su juo surištą order.
+
+Laravel aplankas su modeliais ir pan. nėra būtinas norint paleisti projektą. Jie įkelti tik peržiūrai arba įkėlimui į egzistuojančią Laravel aplikaciją.
+
+Naudotas Laravel 8.x
