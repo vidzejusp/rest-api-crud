@@ -1,0 +1,46 @@
+version: "3.7"
+
+networks:
+    app-network:
+        driver: bridge
+
+services:
+    app:
+        image: vidzejusp/off-task:latest
+        container_name: app
+        restart: unless-stopped
+        tty: true
+        ports:
+            - 8000:80
+        working_dir: /var/www
+        environment:
+            DB_CONNECTION: $DB_CONNECTION
+            DB_HOST: $DB_HOST
+            DB_PORT: $DB_POST
+            DB_DATABASE: $DB_DATABASE
+            DB_USERNAME: $DB_USERNAME
+            DB_PASSWORD: $DB_PASSWORD
+            ADMIN_NAME: $ADMIN_NAME
+            ADMIN_EMAIL: $ADMIN_EMAIL
+            ADMIN_PASSWORD: $ADMIN_PASSWORD
+        depends_on:
+            - mysql
+        networks:
+            - app-network
+
+    mysql:
+        image: mysql:latest
+        container_name: mysql
+        restart: unless-stopped
+        tty: true
+        environment:
+            MYSQL_DATABASE: $DB_DATABASE
+            MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+            MYSQL_PASSWORD: $DB_PASSWORD
+            MYSQL_USER: $DB_USERNAME
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - ./mysql/data:/var/lib/mysql
+        networks:
+            - app-network
